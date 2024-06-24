@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cover = document.getElementById('cover')
   
     btn.addEventListener("click", navToggle)
+    cover.addEventListener("click", navToggle)
   
     function navToggle() {
       btn.classList.toggle('open')
@@ -12,4 +13,19 @@ document.addEventListener('DOMContentLoaded', () => {
       menu.classList.toggle('hidden')
       cover.classList.toggle('hidden')
     }
+  
+})
+
+$(document).ready(function () {
+  $('#inprogress').click(function(){
+    $('#in_progress_task').slideToggle();
   })
+
+  $('#completed').click(function(){
+    $('#completed_task').slideToggle();
+  })
+
+  // $('#overdue').click(function(){
+  //   $('#').slideToggle();
+  // })
+});

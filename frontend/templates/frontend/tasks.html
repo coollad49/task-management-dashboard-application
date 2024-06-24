@@ -2,15 +2,15 @@
 
 <div class="flex space-y-8 md:space-y-0 md:space-x-20 flex-col md:flex-row">
     <div class="flex-1 space-y-5 ">
-        <div class="border-2 border-blue-600 px-2 rounded-md py-2 flex justify-between items-center pl-3">
+        <div id="inprogress" class="border-2 border-blue-600 px-2 rounded-md py-2 flex justify-between items-center pl-3">
             <div><span class="font-semibold">In Progress <span class="text-gray-500">(2)</span></span></div>
             <div class="flex space-x-2">
                 <img src="{% static 'frontend/img/kebab.png' %}" alt="" class="w-4 h-4">
-                <a href="" class="group"><img src="{% static 'frontend/img/down.png' %}" alt="" class="w-4 h-4 md:hidden group-hover:scale-110 duration-200"></a>
+                <!-- <a href="" class="group"><img src="{% static 'frontend/img/down.png' %}" alt="" class="w-4 h-4 md:hidden group-hover:scale-110 duration-200"></a> -->
             </div>
         </div>
         <!-- Tasks In Progress -->
-        <div class="">
+        <div class="hidden md:block" id="in_progress_task">
             <div class="space-y-2 rounded-md">
                 <div class="flex justify-between">
                     <div class="bg-red-200 py-1 px-4 rounded-md text-red-900 font-bold">High</div>
@@ -51,15 +51,15 @@
     </div>
 
     <div class="flex-1 space-y-5">
-        <div class="border-2 border-blue-600 px-2 rounded-md py-2 flex justify-between items-center pl-3">
+        <div id="completed" class="border-2 border-blue-600 px-2 rounded-md py-2 flex justify-between items-center pl-3">
             <div><span class="font-semibold">Completed Task <span class="text-gray-500">(4)</span></span></div>
             <div class="flex space-x-2">
                 <img src="{% static 'frontend/img/kebab.png' %}" alt="" class="w-4 h-4">
-                <a href="" class="group"><img src="{% static 'frontend/img/down.png' %}" alt="" class="w-4 h-4 md:hidden group-hover:scale-110 duration-200"></a>
+                <!-- <a href="" class="group"><img src="{% static 'frontend/img/down.png' %}" alt="" class="w-4 h-4 md:hidden group-hover:scale-110 duration-200"></a> -->
             </div>
         </div>
         <!--Completed tasks -->
-        <div class="">
+        <div class="hidden md:block" id="completed_task">
             <div class="space-y-2 rounded-md">
                 <div class="flex justify-between">
                     <div class="bg-red-200 py-1 px-4 rounded-md text-red-900 font-bold">High</div>
@@ -99,12 +99,12 @@
         </div>
     </div>
 
-    <div class="flex-1">
-        <div class="border-2 border-blue-600 px-2 rounded-md py-2 flex justify-between items-center pl-3">
+    <div class="flex-1 space-y-5">
+        <div id="over-due" class="border-2 border-blue-600 px-2 rounded-md py-2 flex justify-between items-center pl-3">
             <div><span class="font-semibold">Over-Due <span class="text-gray-500">(5)</span></span></div>
             <div class="flex space-x-2">
                 <img src="{% static 'frontend/img/kebab.png' %}" alt="" class="w-4 h-4">
-                <a href="" class="group"><img src="{% static 'frontend/img/down.png' %}" alt="" class="w-4 h-4 md:hidden group-hover:scale-110 duration-200"></a>
+                <!-- <a href="" class="group"><img src="{% static 'frontend/img/down.png' %}" alt="" class="w-4 h-4 md:hidden group-hover:scale-110 duration-200"></a> -->
             </div>
         </div>
         <!-- Over-Due Tasks -->

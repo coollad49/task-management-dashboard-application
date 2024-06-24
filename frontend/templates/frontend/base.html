@@ -5,14 +5,15 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{% static 'frontend/css/output.css' %}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="{% static 'frontend/js/index.js' %}"></script>
         <title>TaskManager</title>
     </head>
     <body class="">
-        <div class="h-full w-full bg-black/70 absolute hidden z-20" id="cover"></div>
-        <div class="flex flex-col md:flex-row relative">
+        <div class="h-full w-full fixed bg-black/70 inset-0 hidden z-20" id="cover"></div>
+        <div class="flex flex-col md:flex-row">
             {% include 'frontend/aside.html' %}
-            <div class="md:hidden pt-8 w-full absolute right-0 top-0">
+            <div class="md:hidden pt-8 w-full flex justify-end pr-4">
                 <button
                     id="menu-btn"
                     type="button"
@@ -23,7 +24,8 @@
                     <span class="hamburger-bottom"></span>
                 </button>
             </div>
-            <div class="pt-16 w-full min-h-screen md:ml-56 space-y-10 px-4">
+            
+            <div class="pt-8 w-full min-h-screen md:ml-56 space-y-10 px-4">
                 {% include 'frontend/header.html' %}
                 {% include 'frontend/tasks.html' %}
             </div>
