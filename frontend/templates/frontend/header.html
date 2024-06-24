@@ -28,12 +28,10 @@
             </div>
         </a>
     </div>
-
-    
 </header>
 
-<div class="flex justify-between ">
-    <div class="flex space-x-5">
+<div class="flex md:justify-between flex-col md:flex-row space-y-5 md:space-y-0">
+    <div class="flex space-x-5 justify-around md:justify-normal">
         <a href="" class="">
             <div class="border-2 rounded-md items-center flex space-x-1 px-2 py-1">
                 <img src="{% static 'frontend/img/app.png' %}" alt="" class="w-5 h-5">
@@ -53,15 +51,15 @@
             </div>
         </a>
     </div>
-    <div class="flex space-x-4">
+    <div class="flex space-x-5 justify-around md:justify-normal">
         <div class="flex items-center">
+            <img src="https://via.placeholder.com/40" alt="" class="w-8 h-8 rounded-full border-2 border-white">
             <img src="https://via.placeholder.com/40" alt="" class="w-8 h-8 rounded-full border-2 border-white overlap">
             <img src="https://via.placeholder.com/40" alt="" class="w-8 h-8 rounded-full border-2 border-white overlap">
             <img src="https://via.placeholder.com/40" alt="" class="w-8 h-8 rounded-full border-2 border-white overlap">
-            <img src="https://via.placeholder.com/40" alt="" class="w-8 h-8 rounded-full border-2 border-white overlap">
-            <div class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-semibold overlap">+2</div>
+            <div class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-semibold overlap text-sm">+2</div>
         </div>
         <div class="mt-1 border-2 rounded-full w-7 h-7 border-dashed flex justify-center items-center text-2xl text-gray-400 border-gray-400">+</div>
-        <div class="border bg-blue-700 text-white px-3 py-1 rounded-md font-semibold">+ Add task</div>
+        <div class="border bg-blue-700 text-white px-3 py-1 rounded-md font-medium">+ Add task</div>
     </div>
 </div>

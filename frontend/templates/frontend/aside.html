@@ -1,0 +1,27 @@
+{% load static %}
+
+<aside class="md:w-56 fixed top-0 left-0 h-full md:bg-gray-400/10 hidden md:block z-40 bg-white" id="menu">
+    <h1 class="text-3xl text-center my-7 font-semibold text-blue-700">Tasky</h1>
+    <div class="space-y-5">
+        <div class="bg-blue-600 mx-5 rounded-lg px-4 py-2 flex items-center space-x-2 duration-200 transition">
+            <img src="{% static 'frontend/img/home.png' %}" class="w-8 h-8">
+            <span class="text-base font-bold text-white">Dashboard</span>
+        </div>
+
+        <div class=" mx-5 rounded-lg px-4 py-2 flex items-center space-x-2  duration-200 transition">
+            <img src="{% static 'frontend/img/completed.png' %}" class="w-8 h-8">
+            <span class="text-base font-bold text-gray-500">Tasks</span>
+        </div>
+
+        <div class=" mx-5 rounded-lg px-4 py-2 flex items-center space-x-2  duration-200 transition">
+            <img src="{% static 'frontend/img/calendar.png' %}" class="w-8 h-8">
+            <span class="text-base font-bold text-gray-500">Calendar</span>
+        </div>
+
+        <div class=" mx-5 rounded-lg px-4 py-2 flex items-center space-x-2  duration-200 transition">
+            <img src="{% static 'frontend/img/people.png' %}" class="w-8 h-8">
+            <span class="text-base font-bold text-gray-500">Members</span>
+        </div>
+          
+    </div>
+</aside>

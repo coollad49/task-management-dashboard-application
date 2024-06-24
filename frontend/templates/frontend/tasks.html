@@ -1,2 +1,113 @@
 {% load static %}
 
+<div class="flex space-y-8 md:space-y-0 md:space-x-20 flex-col md:flex-row">
+    <div class="flex-1 space-y-5 ">
+        <div class="border-2 border-blue-600 px-2 rounded-md py-2 flex justify-between items-center pl-3">
+            <div><span class="font-semibold">In Progress <span class="text-gray-500">(2)</span></span></div>
+            <div class="flex space-x-2">
+                <img src="{% static 'frontend/img/kebab.png' %}" alt="" class="w-4 h-4">
+                <a href="" class="group"><img src="{% static 'frontend/img/down.png' %}" alt="" class="w-4 h-4 md:hidden group-hover:scale-110 duration-200"></a>
+            </div>
+        </div>
+        <!-- Tasks In Progress -->
+        <div class="">
+            <div class="space-y-2 rounded-md">
+                <div class="flex justify-between">
+                    <div class="bg-red-200 py-1 px-4 rounded-md text-red-900 font-bold">High</div>
+                    <div class="flex shadow-2xl shadow-black rounded-md space-x-2 text-center py-1 px-2 ">
+                        <img src="{% static 'frontend/img/clock.png' %}" alt="" class="w-6 h-6">
+                        <span class="text-violet-500 font-semibold">6:00 PM</span>
+                    </div>
+                    <div class="bg-gray-500/20 text-center py-1 text-violet-500 font-medium rounded-md px-3">UX Design</div>
+                </div>
+                <div class="bg-gray-500/20 px-2 py-4 space-y-3 shadow-xl">
+                    <div class="flex justify-between">
+                        <h1 class="font-medium text-xl">User Flow</h1>
+                        <img src="{% static 'frontend/img/kebab-gray.png' %}" alt="" class="w-6 h-6">
+                    </div>
+                    <div class="space-y-2">
+                        <p class="text-gray-500">Designing a dashboard requires of creating a visual interface that...</p>
+                        <div class="border rounded-md border-gray-500/30 w-16 p-1 flex items-center justify-around">
+                            <img src="{% static 'frontend/img/task2.png' %}" alt="" class="w-4 h-4">
+                            <span class="text-gray-500">0/3</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between">
+                        <div class="flex items-center">
+                            <img src="https://via.placeholder.com/40" alt="" class="w-6 h-6 rounded-full border-2 border-white">
+                            <img src="https://via.placeholder.com/40" alt="" class="w-6 h-6 rounded-full border-2 border-white overlap-10">
+                            <img src="https://via.placeholder.com/40" alt="" class="w-6 h-6 rounded-full border-2 border-white overlap-10">
+                            <div class="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-semibold overlap-10 text-sm">+2</div>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <a href=""><img src="{% static 'frontend/img/eye.png' %}" alt="" class="w-7 h-7"></a>
+                            <a href=""><img src="{% static 'frontend/img/bin.png' %}" alt="" class="w-6 h-6"></a>
+                            <a href=""><img src="{% static 'frontend/img/pen.png' %}" alt="" class="w-6 h-6"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex-1 space-y-5">
+        <div class="border-2 border-blue-600 px-2 rounded-md py-2 flex justify-between items-center pl-3">
+            <div><span class="font-semibold">Completed Task <span class="text-gray-500">(4)</span></span></div>
+            <div class="flex space-x-2">
+                <img src="{% static 'frontend/img/kebab.png' %}" alt="" class="w-4 h-4">
+                <a href="" class="group"><img src="{% static 'frontend/img/down.png' %}" alt="" class="w-4 h-4 md:hidden group-hover:scale-110 duration-200"></a>
+            </div>
+        </div>
+        <!--Completed tasks -->
+        <div class="">
+            <div class="space-y-2 rounded-md">
+                <div class="flex justify-between">
+                    <div class="bg-red-200 py-1 px-4 rounded-md text-red-900 font-bold">High</div>
+                    <div class="flex shadow-2xl shadow-black rounded-md space-x-2 text-center py-1 px-2 ">
+                        <img src="{% static 'frontend/img/clock.png' %}" alt="" class="w-6 h-6">
+                        <span class="text-violet-500 font-semibold">6:00 PM</span>
+                    </div>
+                    <div class="bg-gray-500/20 text-center py-1 text-violet-500 font-medium rounded-md px-3">UX Design</div>
+                </div>
+                <div class="bg-gray-500/20 px-2 py-4 space-y-3 shadow-xl">
+                    <div class="flex justify-between">
+                        <h1 class="font-medium text-xl">User Flow</h1>
+                        <img src="{% static 'frontend/img/kebab-gray.png' %}" alt="" class="w-6 h-6">
+                    </div>
+                    <div class="space-y-2">
+                        <p class="text-gray-500">Designing a dashboard requires of creating a visual interface that...</p>
+                        <div class="border rounded-md border-gray-500/30 w-16 p-1 flex items-center justify-around">
+                            <img src="{% static 'frontend/img/task2.png' %}" alt="" class="w-4 h-4">
+                            <span class="text-gray-500">0/3</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between">
+                        <div class="flex items-center">
+                            <img src="https://via.placeholder.com/40" alt="" class="w-6 h-6 rounded-full border-2 border-white">
+                            <img src="https://via.placeholder.com/40" alt="" class="w-6 h-6 rounded-full border-2 border-white overlap-10">
+                            <img src="https://via.placeholder.com/40" alt="" class="w-6 h-6 rounded-full border-2 border-white overlap-10">
+                            <div class="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-semibold overlap-10 text-sm">+2</div>
+                        </div>
+                        <div class="flex items-center justify-center space-x-2">
+                            <a href=""><img src="{% static 'frontend/img/eye.png' %}" alt="" class="w-7 h-7"></a>
+                            <a href=""><img src="{% static 'frontend/img/bin.png' %}" alt="" class="w-6 h-6"></a>
+                            <a href=""><img src="{% static 'frontend/img/pen.png' %}" alt="" class="w-6 h-6"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex-1">
+        <div class="border-2 border-blue-600 px-2 rounded-md py-2 flex justify-between items-center pl-3">
+            <div><span class="font-semibold">Over-Due <span class="text-gray-500">(5)</span></span></div>
+            <div class="flex space-x-2">
+                <img src="{% static 'frontend/img/kebab.png' %}" alt="" class="w-4 h-4">
+                <a href="" class="group"><img src="{% static 'frontend/img/down.png' %}" alt="" class="w-4 h-4 md:hidden group-hover:scale-110 duration-200"></a>
+            </div>
+        </div>
+        <!-- Over-Due Tasks -->
+    </div>
+    
+</div>
