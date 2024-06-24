@@ -87,3 +87,27 @@ class UpdateTaskView(generics.RetrieveUpdateAPIView):
 
     def perform_update(self, serializer):
         serializer.save()
+
+class InProgressTaskListView(generics.ListAPIView):
+    serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Task.objects.filter(assigned_to=user, status='IP')
+
+class CompletedTaskListView(generics.ListAPIView):
+    serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Task.objects.filter(assigned_to=user, status='CO')
+
+class OverdueTaskListView(generics.ListAPIView):
+    serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Task.objects.filter(assigned_to=user, status='OV')
