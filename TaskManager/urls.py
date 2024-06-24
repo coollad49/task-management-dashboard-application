@@ -16,8 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from taskapp.views import login_view, logout_view, register
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("frontend.urls")),
+    path('', include("taskapp.urls")),
+    path('login', login_view, name="login"),
+    path('logout', logout_view, name="logout"),
+    path('register', register, name="register"),
+
 ]
