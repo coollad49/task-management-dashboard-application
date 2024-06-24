@@ -1,0 +1,67 @@
+{% load static %}
+
+<header class="flex justify-between">
+    <form class="relative">
+        <input type="text" name="" id="" class="bg-gray-500/30 w-60 h-9 focus:outline-none placeholder:font-medium placeholder:text-gray-500 pl-8  rounded-md" placeholder="Search tasks">
+        <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-5 text-gray-600 absolute top-2 ml-2"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <circle cx="10" cy="10" r="7" />
+              <line x1="21" y1="21" x2="15" y2="15" />
+            </svg>
+    </form>
+    <div class="flex space-x-4">
+        <a href=""><img src="{% static 'frontend/img/comment.png' %}" alt="" class="w-8 h-8"></a>
+
+        <a href=""><img src="{% static 'frontend/img/notification-bell.png' %}" alt="" class="w-8 h-8"></a>
+        <a href="">
+            <div class="w-8 h-8 rounded-full border">
+
+            </div>
+        </a>
+    </div>
+
+    
+</header>
+
+<div class="flex justify-between ">
+    <div class="flex space-x-5">
+        <a href="" class="">
+            <div class="border-2 rounded-md items-center flex space-x-1 px-2 py-1">
+                <img src="{% static 'frontend/img/app.png' %}" alt="" class="w-5 h-5">
+                <span>Preview</span>
+            </div>
+        </a>
+        <a href="" class="">
+            <div class="border-2 rounded-md items-center flex space-x-1 px-2 py-1">
+                <img src="{% static 'frontend/img/sort.png' %}" alt="" class="w-5 h-5">
+                <span>Sort</span>
+            </div>
+        </a>
+        <a href="" class="">
+            <div class="border-2 rounded-md items-center flex space-x-1 px-2 py-1">
+                <img src="{% static 'frontend/img/filter.png' %}" alt="" class="w-5 h-5">
+                <span>Filter</span>
+            </div>
+        </a>
+    </div>
+    <div class="flex space-x-4">
+        <div class="flex items-center">
+            <img src="https://via.placeholder.com/40" alt="" class="w-8 h-8 rounded-full border-2 border-white overlap">
+            <img src="https://via.placeholder.com/40" alt="" class="w-8 h-8 rounded-full border-2 border-white overlap">
+            <img src="https://via.placeholder.com/40" alt="" class="w-8 h-8 rounded-full border-2 border-white overlap">
+            <img src="https://via.placeholder.com/40" alt="" class="w-8 h-8 rounded-full border-2 border-white overlap">
+            <div class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-semibold overlap">+2</div>
+        </div>
+        <div class="mt-1 border-2 rounded-full w-7 h-7 border-dashed flex justify-center items-center text-2xl text-gray-400 border-gray-400">+</div>
+        <div class="border bg-blue-700 text-white px-3 py-1 rounded-md font-semibold">+ Add task</div>
+    </div>
+</div>
