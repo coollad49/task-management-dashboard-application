@@ -102,6 +102,66 @@ $(document).ready(function () {
     $('#overdue_task').slideToggle();
   })
 
+  $('#addtask-modal').hide();
+  $('#add-task').click(function(){
+    $('#addtask-modal').show();
+  })
+
+  $('#close-btn').click(function(){
+    $('#addtask-modal').hide();
+  })
+
+  $('#createTaskForm').on('submit', function(event) {
+    event.preventDefault();
+
+    const formData = {
+        title: $('#title').val(),
+        description: $('#description').val(),
+        status: $('#status').val(),
+        priority: $('#priority').val(),
+        due_date: $('#due_date').val(),
+        category: $('#category').val()
+    };
+    console.log(JSON.stringify(formData))
+    $.ajax({
+        url: 'http://localhost:8000/tasks/',  // Your API endpoint to create tasks
+        method: 'POST',
+        data: JSON.stringify(formData),
+        contentType: 'application/json',
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')  // Include CSRF token if needed
+        },
+        success: function(response) {
+            // Handle success (e.g., refresh the task list, close modal)
+            alert('Task created successfully');
+            $('#addtask-modal').hide();
+            // Reload the task list
+            loadTasks(in_progress_url, "#in_progress_task", "#inprogress_count")
+            loadTasks(completed_url, "#completed_task", "#completed_count")
+            loadTasks(overdue_url, "#overdue_task", "#overdue_count")  
+        },
+        error: function(xhr, status, error) {
+            // Handle error
+            alert('Error creating task: ' + error);
+        }
+    });
+
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+    }
+  });
 });
 
 function data_converter(dueDateStr){
@@ -124,3 +184,8 @@ function data_converter(dueDateStr){
   return timeStr;
 
 }
+
+$(function () {
+  
+
+});

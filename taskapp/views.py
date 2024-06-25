@@ -99,7 +99,7 @@ class UpdateTaskView(generics.RetrieveUpdateAPIView):
         if Task.objects.filter(title=title, assigned_to=user).exclude(id=instance_id).exists():
             raise serializers.ValidationError("You already have a task with this title.")
         
-        serializer.save()
+        serializer.save(assigned_to=user)
 
 class InProgressTaskListView(generics.ListAPIView):
     serializer_class = TaskSerializer
