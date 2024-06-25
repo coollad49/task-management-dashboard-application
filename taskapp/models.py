@@ -28,3 +28,6 @@ class Task(models.Model):
 
     def __str__(self):
         return f"{self.title} with {self.priority} priority"
+    
+    class Meta:
+        unique_together = ["title", "assigned_to"]

@@ -19,7 +19,7 @@ $(document).ready(function () {
   };
   
   
-  async function loadTasks(url, container) {
+  async function loadTasks(url, container, id) {
     try {
         const response = await $.ajax({
             url: url,
@@ -27,7 +27,8 @@ $(document).ready(function () {
         });
 
         $(container).empty();
-        response.forEach(function(task) {
+        $(id).text(`(${response[id.replace("#", "")]})`)
+        response.tasks.forEach(function(task) {
           const status = statusMap[task.status] || task.status; // Default to original if no match
           const priority = priorityMap[task.priority] || task.priority;
           const time = data_converter(task.due_date)
@@ -69,14 +70,15 @@ $(document).ready(function () {
               </div>`;
             $(container).append(taskElement);
         });
+
     } catch (error) {
         console.error('Error fetching tasks:', error);
     }
   }
 
-  loadTasks(in_progress_url, "#in_progress_task")
-  loadTasks(completed_url, "#completed_task")
-  loadTasks(overdue_url, "#overdue_task")
+  loadTasks(in_progress_url, "#in_progress_task", "#inprogress_count")
+  loadTasks(completed_url, "#completed_task", "#completed_count")
+  loadTasks(overdue_url, "#overdue_task", "#overdue_count")
 
   btn.addEventListener("click", navToggle)
   cover.addEventListener("click", navToggle)
@@ -96,9 +98,9 @@ $(document).ready(function () {
     $('#completed_task').slideToggle();
   })
 
-  // $('#overdue').click(function(){
-  //   $('#').slideToggle();
-  // })
+  $('#overdue').click(function(){
+    $('#overdue_task').slideToggle();
+  })
 
 });
 
