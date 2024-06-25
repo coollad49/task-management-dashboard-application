@@ -57,6 +57,10 @@ def register(request):
     else:
         return render(request, "frontend/register.html")
 
+class TaskDetailView(generics.RetrieveAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated]
 class TaskListView(generics.ListCreateAPIView):
     serializer_class = TaskSerializer
     permission_classes = [IsAuthenticated]

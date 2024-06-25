@@ -1,3 +1,19 @@
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue;
+}
+
 $(document).ready(function () {
   const btn = document.getElementById('menu-btn');
   const menu = document.getElementById('menu');
@@ -53,18 +69,10 @@ $(document).ready(function () {
                             <span class="text-gray-500">0/3</span>
                         </div>
                     </div>
-                    <div class="flex justify-between">
-                        <div class="flex items-center">
-                            <img src="https://via.placeholder.com/40" alt="" class="w-6 h-6 rounded-full border-2 border-white">
-                            <img src="https://via.placeholder.com/40" alt="" class="w-6 h-6 rounded-full border-2 border-white overlap-10">
-                            <img src="https://via.placeholder.com/40" alt="" class="w-6 h-6 rounded-full border-2 border-white overlap-10">
-                            <div class="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-semibold overlap-10 text-sm">+2</div>
-                        </div>
-                        <div class="flex items-center justify-center space-x-2">
-                            <a href=""><img src="static/frontend/img/eye.png" alt="" class="w-7 h-7"></a>
-                            <a href=""><img src="static/frontend/img/bin.png" alt="" class="w-6 h-6"></a>
-                            <a href=""><img src="static/frontend/img/pen.png" alt="" class="w-6 h-6"></a>
-                        </div>
+                    <div class="flex items-center justify-around space-x-2">
+                        <a href=""><img src="static/frontend/img/eye.png" alt="" class="w-8 h-8"></a>
+                        <a href=""><img src="static/frontend/img/bin.png" alt="" class="w-8 h-8"></a>
+                        <div class="edit-task-btn cursor-pointer" data-id="${task.id}"><img src="static/frontend/img/pen.png" alt="" class="w-8 h-8"></div>
                     </div>
                 </div>
               </div>`;
@@ -103,12 +111,14 @@ $(document).ready(function () {
   })
 
   $('#addtask-modal').hide();
+  $('#editTaskModal').hide();
   $('#add-task').click(function(){
     $('#addtask-modal').show();
   })
 
-  $('#close-btn').click(function(){
+  $('.close-btn').click(function(){
     $('#addtask-modal').hide();
+    $('#editTaskModal').hide();
   })
 
   $('#createTaskForm').on('submit', function(event) {
@@ -145,22 +155,45 @@ $(document).ready(function () {
             alert('Error creating task: ' + error);
         }
     });
+  });
 
-    function getCookie(name) {
-      let cookieValue = null;
-      if (document.cookie && document.cookie !== '') {
-          const cookies = document.cookie.split(';');
-          for (let i = 0; i < cookies.length; i++) {
-              const cookie = cookies[i].trim();
-              // Does this cookie string begin with the name we want?
-              if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                  break;
-              }
+
+  
+
+  $('#editTaskForm').on('submit', function(event) {
+      event.preventDefault();
+
+      const taskId = $('#editId').val();
+      console.log(taskId)
+      const formData = {
+        title: $('#editTitle').val(),
+        description: $('#editDescription').val(),
+        status: $('#editStatus').val(),
+        priority: $('#editPriority').val(),
+        due_date: $('#edit_Due_date').val(),
+        category: $('#editCategory').val()
+    };
+
+      $.ajax({
+          url: 'http://localhost:8000/tasks/' + taskId + '/update/',
+          method: 'PUT',
+          data: JSON.stringify(formData),
+          contentType: 'application/json',
+          headers: {
+              'X-CSRFToken': getCookie('csrftoken')
+          },
+          success: function(response) {
+              alert('Task updated successfully');
+              $('#editTaskModal').hide();
+              // Reload the task list
+              loadTasks(in_progress_url, "#in_progress_task", "#inprogress_count")
+              loadTasks(completed_url, "#completed_task", "#completed_count")
+              loadTasks(overdue_url, "#overdue_task", "#overdue_count")
+          },
+          error: function(xhr, status, error) {
+              alert('Error updating task: ' + error);
           }
-      }
-      return cookieValue;
-    }
+      });
   });
 });
 
@@ -185,7 +218,23 @@ function data_converter(dueDateStr){
 
 }
 
-$(function () {
-  
-
+$(document).on('click', '.edit-task-btn', function(){
+  $('.edit-task-btn').click(function() {
+    const taskId = $(this).data('id');
+    console.log(taskId)
+    // Fetch task data and populate the form
+    $.get('http://localhost:8000/tasks/' + taskId, function(data) {
+        const dueDate = new Date(data.due_date);
+        const formattedDueDate = dueDate.toISOString().slice(0, 16); // Get 'YYYY-MM-DDTHH:MM' format
+        
+        $('#editId').val(data.id)
+        $('#editTitle').val(data.title);
+        $('#editDescription').val(data.description);
+        $('#edit_Due_date').val(formattedDueDate);
+        $('#editStatus').val(data.status);
+        $('#editPriority').val(data.priority);
+        $('#editCategory').val(data.category);
+        $('#editTaskModal').show();
+    });
+  });
 });

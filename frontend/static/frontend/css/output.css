@@ -624,6 +624,11 @@ video {
   margin-bottom: 1.75rem;
 }
 
+.mx-24 {
+  margin-left: 6rem;
+  margin-right: 6rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -1030,6 +1035,21 @@ video {
   padding-bottom: 1rem;
 }
 
+.px-24 {
+  padding-left: 6rem;
+  padding-right: 6rem;
+}
+
+.px-16 {
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+
+.px-12 {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
 .pb-8 {
   padding-bottom: 2rem;
 }
@@ -1364,6 +1384,10 @@ video {
 
   .md\:w-10 {
     width: 2.5rem;
+  }
+
+  .md\:w-\[50\%\] {
+    width: 50%;
   }
 
   .md\:flex-row {
