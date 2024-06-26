@@ -111,7 +111,8 @@ class InProgressTaskListView(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Task.objects.filter(assigned_to=user, status='IP')
+        tasks = Task.objects.filter(assigned_to=user, status='IP')
+        return tasks
     
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
@@ -167,3 +168,10 @@ class OverdueTaskListView(generics.ListAPIView):
             'overdue_count': overdue_count
         }
         return Response(response_data)
+    
+class TaskSearchView(generics.ListAPIView):
+    serializer_class = TaskSerializer
+
+    def get_queryset(self):
+        q = self.request.GET.get('q')
+        return Task.objects.filter(title__icontains=q)

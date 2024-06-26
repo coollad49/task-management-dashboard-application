@@ -9,4 +9,5 @@ urlpatterns = [
     path('tasks/in_progress/', InProgressTaskListView.as_view(), name='inprogress-tasks'),
     path('tasks/completed/', CompletedTaskListView.as_view(), name='completed-tasks'),
     path('tasks/overdue/', OverdueTaskListView.as_view(), name='overdue-tasks'),
+    path('search/', TaskSearchView.as_view(), name='task_search'),
 ]
