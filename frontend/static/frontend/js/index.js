@@ -2,6 +2,18 @@ const in_progress_url = "http://localhost:8000/tasks/in_progress";
 const completed_url = "http://localhost:8000/tasks/completed";
 const overdue_url = "http://localhost:8000/tasks/overdue";
 
+const statusMap = {
+  'IP': 'In Progress',
+  'CO': 'Completed',
+  'OV': 'Overdue'
+};
+
+const priorityMap = {
+  'HI': 'High',
+  'LO': 'Low',
+  'ME': 'Medium'
+};
+
 function updateTaskStatus(taskId, newStatus) {
   $.ajax({
       url: `http://localhost:8000/tasks/${taskId}/update/`,
@@ -53,7 +65,7 @@ async function loadTasks(url, container, id) {
           loadTasks(completed_url, "#completed_task", "#completed_count")
           loadTasks(overdue_url, "#overdue_task", "#overdue_count")
         }
-        const taskElement = `<div class="space-y-2 rounded-md">
+        const taskElement = `<div class="space-y-2 rounded-md task" data-id="${task.id}" data-status="${task.status}">
               <div class="flex justify-between">
                   <div class="bg-red-200 py-1 px-4 rounded-md text-red-900 font-bold">${priority}</div>
                   <div class="flex shadow-2xl shadow-black rounded-md space-x-2 text-center py-1 px-2 ">
@@ -106,7 +118,13 @@ function getCookie(name) {
 }
 
 $(document).ready(function () {
-    
+  drag_drop_feature()
+  $('#searchModal').hide()
+ 
+  $('#searchInput').focus(function() {
+    $('#searchModal').show();
+  });
+
   const btn = document.getElementById('menu-btn');
   const menu = document.getElementById('menu');
   const cover = document.getElementById('cover');
@@ -148,6 +166,7 @@ $(document).ready(function () {
     $('#addtask-modal').hide();
     $('#editTaskModal').hide();
     $('#deleteModal').hide();
+    $('#searchModal').hide();
   })
 
   $('#createTaskForm').on('submit', function(event) {
@@ -220,6 +239,64 @@ $(document).ready(function () {
               alert('Error updating task: ' + error);
           }
       });
+  });
+
+  let allTasks = [];
+
+  function fetchTasks() {
+    $.get('http://localhost:8000/tasks/', function(data) {
+      allTasks = data; // Store the fetched tasks
+      console.log(allTasks)
+    });
+  }
+
+  function searchTasks(query) {
+    const container = $('#taskContainer');
+  
+    if (query === '') {
+      // Clear the container and fetch all tasks when search input is cleared
+      container.empty();
+      fetchTasks(); // Fetch all tasks again
+    } else {
+      const filteredTasks = allTasks.filter(task => {
+        return task.title.toLowerCase().includes(query.toLowerCase()) ||
+               task.description.toLowerCase().includes(query.toLowerCase()) ||
+               task.category.toLowerCase().includes(query.toLowerCase());
+      });
+      displayTasks(filteredTasks); // Display the filtered tasks
+    }
+  }
+
+  function displayTasks(tasks) {
+    const container = $('#taskContainer');
+    container.empty(); // Clear the container
+
+    tasks.forEach(task => {
+      const status = statusMap[task.status] || task.status; // Default to original if no match
+      const priority = priorityMap[task.priority] || task.priority;
+      const time = data_converter(task.due_date)
+      const taskElement = `<div class="bg-white border rounded-md shadow-md p-4">
+                            <h3 class="text-lg font-medium text-gray-900">${task.title}</h3>
+                            <p class="text-sm text-gray-500 mb-2">${task.description}</p>
+                            <div class="flex justify-between text-sm text-gray-600">
+                                <span class="status">Status: <span class="status-text">${status}</span></span>
+                                <span class="priority">Priority: <span class="priority-text">${priority}</span></span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-600 mt-2">
+                                <span>Due Date: <span class="text-green-500">${time}</span></span>
+                                <span class="category">Category: <span class="category-text">${task.category}</span></span>
+                            </div>
+                        </div>`
+        container.append(taskElement);
+    });
+    updateTaskColors()
+  }
+
+  fetchTasks(); // Fetch tasks when the page loads
+
+  $('#search').on('input', function() {
+    const query = $(this).val();
+    searchTasks(query); // Search tasks based on the input value
   });
 
   
@@ -298,3 +375,53 @@ $(document).on('click', '.delete-btn', function(){
     }
   });
 })
+
+function drag_drop_feature(){
+  $(".task").draggable({
+      revert: "invalid",
+      start: function(event, ui) {
+          $(this).addClass("dragging");
+      },
+      stop: function(event, ui) {
+          $(this).removeClass("dragging");
+      }
+  });
+
+  $(".task-list").droppable({
+      accept: ".task",
+      drop: function(event, ui) {
+          var newStatus = $(this).attr("id");
+          var taskId = ui.draggable.data("id");
+
+          ui.draggable.detach().appendTo($(this)).css({top: 0, left: 0});
+          ui.draggable.attr("data-status", newStatus);
+
+          // Send AJAX request to update task status
+          updateTaskStatus(taskId, newStatus);
+      }
+  });
+}
+
+function updateTaskColors() {
+  const tasks = document.querySelectorAll('#taskContainer > div');
+  tasks.forEach(task => {
+      const statusText = task.querySelector('.status-text').textContent;
+      const priorityText = task.querySelector('.priority-text').textContent;
+      // Update status color
+      if (statusText === 'In Progress') {
+          task.querySelector('.status-text').classList.add('text-blue-500');
+      } else if (statusText === 'Completed') {
+          task.querySelector('.status-text').classList.add('text-green-500');
+      }
+
+      // Update priority color
+      if (priorityText === 'High') {
+          task.querySelector('.priority-text').classList.add('text-red-500');
+      } else if (priorityText === 'Medium') {
+          task.querySelector('.priority-text').classList.add('text-yellow-500');
+      } else if (priorityText === 'Low') {
+          task.querySelector('.priority-text').classList.add('text-green-500');
+      }
+
+  });
+}

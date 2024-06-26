@@ -1,7 +1,7 @@
 {% load static %}
 
 <div class="flex space-y-8 md:space-y-0 md:space-x-10 flex-col md:flex-row">
-    <div class="flex-1 space-y-5 ">
+    <div class="flex-1 space-y-5 task-list" id="IP">
         <div id="inprogress" class="border-2 border-blue-600 px-2 rounded-md py-2 flex justify-between items-center pl-3">
             <div><span class="font-semibold">In Progress <span class="text-gray-500" id="inprogress_count">(0)</span></span></div>
             <div class="flex space-x-2">
@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <div class="flex-1 space-y-5">
+    <div class="flex-1 space-y-5 task-list" id="CO">
         <div id="completed" class="border-2 border-blue-600 px-2 rounded-md py-2 flex justify-between items-center pl-3">
             <div><span class="font-semibold">Completed Task <span class="text-gray-500" id="completed_count">(0)</span></span></div>
             <div class="flex space-x-2">
@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div class="flex-1 space-y-5">
+    <div class="flex-1 space-y-5 task-list" id="OV">
         <div id="overdue" class="border-2 border-blue-600 px-2 rounded-md py-2 flex justify-between items-center pl-3">
             <div><span class="font-semibold">Over-Due <span class="text-gray-500" id="overdue_count">(0)</span></span></div>
             <div class="flex space-x-2">
