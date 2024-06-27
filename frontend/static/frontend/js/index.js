@@ -14,7 +14,7 @@ const priorityMap = {
   'ME': 'Medium'
 };
 
-function updateTaskStatus(taskId, newStatus) {
+function updateTaskStatus(taskId, newStatus, callback) {
   $.ajax({
       url: `http://localhost:8000/tasks/${taskId}/update/`,
       method: 'PATCH',
@@ -25,6 +25,9 @@ function updateTaskStatus(taskId, newStatus) {
       data: JSON.stringify({ status: newStatus }),
       success: function(data) {
           console.log('Task status updated successfully');
+          if(callback){
+            callback();
+          }
       },
       error: function(error) {
           console.error('Error updating task status:', error);
@@ -52,6 +55,7 @@ async function loadTasks(url, container, id) {
       });
 
       $(container).empty();
+
       $(id).text(`(${response[id.replace("#", "")]})`)
       response.tasks.forEach(function(task) {
         const currentTime = new Date();
@@ -112,14 +116,17 @@ async function loadTasks(url, container, id) {
                   var newStatus = $(this).attr("id");
                   var taskId = ui.draggable.data("id");
         
-                  ui.draggable.detach().appendTo($(this)).css({top: 0, left: 0});
-                  ui.draggable.attr("data-status", newStatus);
-        
                   console.log("Task dropped on list " + newStatus);
                   console.log("Task ID: " + taskId);
         
                   // Send AJAX request to update task status
-                  updateTaskStatus(taskId, newStatus);
+                  updateTaskStatus(taskId, newStatus, function() {
+                    // Reload tasks after status update
+                    loadTasks(in_progress_url, "#in_progress_task", "#inprogress_count")
+                    loadTasks(completed_url, "#completed_task", "#completed_count")
+                    loadTasks(overdue_url, "#overdue_task", "#overdue_count")
+                });
+                  
               }
           });
       });
