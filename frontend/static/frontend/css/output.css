@@ -1321,6 +1321,21 @@ video {
   transform: rotate(-45deg) translateY(6px) translateX(-6px);
 }
 
+.red {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
+.green {
+  --tw-text-opacity: 1;
+  color: rgb(34 197 94 / var(--tw-text-opacity));
+}
+
+.yellow {
+  --tw-text-opacity: 1;
+  color: rgb(234 179 8 / var(--tw-text-opacity));
+}
+
 .placeholder\:font-medium::-moz-placeholder {
   font-weight: 500;
 }
@@ -1563,4 +1578,3 @@ video {
     background-color: rgb(156 163 175 / 0.1);
   }
 }
-  

@@ -413,6 +413,7 @@ $(document).ready(function () {
                         </div>`
         container.append(taskElement);
     });
+    
     updateTaskColors()
   }
 
@@ -500,16 +501,16 @@ function updateTaskColors() {
       if (statusText === 'In Progress') {
           task.querySelector('.status-text').classList.add('text-blue-500');
       } else if (statusText === 'Completed') {
-          task.querySelector('.status-text').classList.add('text-green-500');
+          task.querySelector('.status-text').classList.add('green');
       }
 
       // Update priority color
       if (priorityText === 'High') {
-          task.querySelector('.priority-text').classList.add('text-red-500');
+          task.querySelector('.priority-text').classList.add('red');
       } else if (priorityText === 'Medium') {
-          task.querySelector('.priority-text').classList.add('text-yellow-500');
+          task.querySelector('.priority-text').classList.add('yellow');
       } else if (priorityText === 'Low') {
-          task.querySelector('.priority-text').classList.add('text-green-500');
+          task.querySelector('.priority-text').classList.add('green');
       }
 
   });

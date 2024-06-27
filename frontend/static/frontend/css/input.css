@@ -56,3 +56,14 @@
     transform: rotate(-45deg) translateY(6px) translateX(-6px);
   }
   
+.red{
+  @apply text-red-500;
+}
+
+.green{
+  @apply text-green-500;
+}
+
+.yellow{
+  @apply text-yellow-500;
+}
