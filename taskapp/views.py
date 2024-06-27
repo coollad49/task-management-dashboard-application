@@ -169,10 +169,3 @@ class OverdueTaskListView(generics.ListAPIView):
         }
         return Response(response_data)
     
-class TaskSearchView(generics.ListAPIView):
-    serializer_class = TaskSerializer
-
-    def get_queryset(self):
-        q = self.request.GET.get('q')
-        user = self.request.user
-        return Task.objects.filter(title__icontains=q, assigned_to=user)
