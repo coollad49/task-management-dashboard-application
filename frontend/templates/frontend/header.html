@@ -47,22 +47,35 @@
                 <img src="{% static 'frontend/img/filter.png' %}" alt="" class="w-5 h-5">
                 <span>Filter</span>
             </div>
-            <select id="filterPriority" class="block appearance-none bg-white border border-gray-300 hover:border-gray-400 px-4 py-1  rounded shadow leading-tight focus:outline-none focus:bg-white">
-                <option value="">Priority</option>
-                <option value="LO">Low</option>
-                <option value="ME">Medium</option>
-                <option value="HI">High</option>
-            </select>
+            <div class="relative">
+                <select id="filterPriority" class="block appearance-none bg-white border border-gray-300 hover:border-gray-400 px-4 py-1  rounded shadow leading-tight focus:outline-none focus:bg-white">
+                    <option value="">Priority</option>
+                    <option value="LO">Low</option>
+                    <option value="ME">Medium</option>
+                    <option value="HI">High</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 top-0 flex items-center px-2 pointer-events-none">
+                    <!-- Font Awesome icon for down arrow -->
+                    <img src="{% static 'frontend/img/down.png' %}" alt="" class="w-4 h-4">
+                </div>
+            </div>
             <div class="">
                 <input type="datetime-local" name="" id="filterDuedate" class="focus:outline-none py-1 border border-gray-300 hover:border-gray-400 px-3">
             </div>
-            <select id="filterCategory" class="block appearance-none  bg-white border border-gray-300 hover:border-gray-400 px-4 py-1  rounded shadow leading-tight focus:outline-none">
-                <option value="">Category</option>
-                <option value="Development">Development</option>
-                <option value="Design">Design</option>
-                <option value="Work">Work</option>
-                <option value="Personal">Personal</option>
-            </select>
+            
+            <div class="relative">
+                <select id="filterCategory" class="block appearance-none  bg-white border border-gray-300 hover:border-gray-400 px-4 py-1  rounded shadow leading-tight focus:outline-none">
+                    <option value="">Category</option>
+                    <option value="Development">Development</option>
+                    <option value="Design">Design</option>
+                    <option value="Work">Work</option>
+                    <option value="Personal">Personal</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 top-0 flex items-center px-2 pointer-events-none">
+                    <!-- Font Awesome icon for down arrow -->
+                    <img src="{% static 'frontend/img/down.png' %}" alt="" class="w-4 h-4">
+                </div>
+            </div>
 
         </div>
         
@@ -75,11 +88,18 @@
                 <img src="{% static 'frontend/img/sort.png' %}" alt="" class="w-5 h-5">
                 <span>Sort</span>
             </div>
-            <select id="sortby" class="block appearance-none w-[50%] bg-white border border-gray-300 hover:border-gray-400 px-4 py-1  rounded shadow leading-tight focus:outline-none focus:bg-white">
-                <option value="priority">Priority</option>
-                <option value="due_date">Due Date</option>
-                <option value="category">Category</option>
-            </select>
+            
+            <div class="relative">
+                <select id="sortby" class="block appearance-none bg-white border border-gray-300 hover:border-gray-400 px-4 py-1  rounded shadow leading-tight focus:outline-none focus:bg-white">
+                    <option value="priority">Priority</option>
+                    <option value="due_date">Due Date</option>
+                    <option value="category">Category</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 top-0 flex items-center px-2 pointer-events-none">
+                    <!-- Font Awesome icon for down arrow -->
+                    <img src="{% static 'frontend/img/down.png' %}" alt="" class="w-4 h-4">
+                </div>
+            </div>
         </div>
         <div class="flex space-x-4">
             <button class="border bg-blue-700 text-white px-3 py-2 rounded-md font-medium" id="add-task">+ Add task</button>
