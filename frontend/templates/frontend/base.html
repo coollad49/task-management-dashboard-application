@@ -9,17 +9,18 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="{% static 'frontend/js/index.js' %}"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <title>TaskManager</title>
     </head>
     <body class="">
         {% include 'frontend/modal.html' %}
-        <div class="flex flex-col md:flex-row">
+        <div class="flex flex-col xl:flex-row">
             {% include 'frontend/aside.html' %}
-            <div class="md:hidden pt-8 w-full flex justify-end pr-4">
+            <div class="xl:hidden pt-8 w-full flex justify-end pr-4">
                 <button
                     id="menu-btn"
                     type="button"
-                    class="z-40 block hamburger md:hidden focus:outline-none"
+                    class="z-40 block hamburger xl:hidden focus:outline-none"
                     >
                     <span class="hamburger-top"></span>
                     <span class="hamburger-middle"></span>
@@ -27,7 +28,7 @@
                 </button>
             </div>
             
-            <div class="pt-8 w-full min-h-screen md:ml-56 space-y-10 px-4 pb-20">
+            <div class="pt-8 w-full min-h-screen xl:ml-56 space-y-10 px-4 pb-20">
                 {% include 'frontend/header.html' %}
                 {% include 'frontend/tasks.html' %}
             </div>

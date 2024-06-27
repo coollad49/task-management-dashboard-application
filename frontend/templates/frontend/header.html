@@ -32,36 +32,69 @@
     {% endcomment %}
 </header>
 
-<div class="flex md:justify-between flex-col md:flex-row space-y-5 md:space-y-0">
-    <div class="flex space-x-5 justify-around md:justify-normal">
-        <a href="" class="">
-            <div class="border-2 rounded-md items-center flex space-x-1 px-2 py-1">
-                <img src="{% static 'frontend/img/app.png' %}" alt="" class="w-5 h-5">
-                <span>Preview</span>
-            </div>
-        </a>
-        <a href="" class="">
-            <div class="border-2 rounded-md items-center flex space-x-1 px-2 py-1">
-                <img src="{% static 'frontend/img/sort.png' %}" alt="" class="w-5 h-5">
-                <span>Sort</span>
-            </div>
-        </a>
-        <a href="" class="">
-            <div class="border-2 rounded-md items-center flex space-x-1 px-2 py-1">
+<div class="space-y-5">
+    <div class="space-y-5">
+        {% comment %}
+            <a href="" class="">
+                <div class="border-2 rounded-md items-center flex space-x-1 px-2 py-1">
+                    <img src="{% static 'frontend/img/app.png' %}" alt="" class="w-5 h-5">
+                    <span>Preview</span>
+                </div>
+            </a>
+        {% endcomment %}
+        <div class="text-left cursor-pointer flex space-x-2 lg:space-y-2  border-gray-300 flex-wrap" id="filterdiv">
+            <div class="border-2 rounded-md items-center flex space-x-1 px-5 py-1" id="filterBtn">
                 <img src="{% static 'frontend/img/filter.png' %}" alt="" class="w-5 h-5">
                 <span>Filter</span>
             </div>
-        </a>
+            <select id="filterPriority" class="block appearance-none bg-white border border-gray-300 hover:border-gray-400 px-4 py-1  rounded shadow leading-tight focus:outline-none focus:bg-white">
+                <option value="">Priority</option>
+                <option value="LO">Low</option>
+                <option value="ME">Medium</option>
+                <option value="HI">High</option>
+            </select>
+            <div class="">
+                <input type="datetime-local" name="" id="filterDuedate" class="focus:outline-none py-1 border border-gray-300 hover:border-gray-400 px-3">
+            </div>
+            <select id="filterCategory" class="block appearance-none  bg-white border border-gray-300 hover:border-gray-400 px-4 py-1  rounded shadow leading-tight focus:outline-none">
+                <option value="">Category</option>
+                <option value="Development">Development</option>
+                <option value="Design">Design</option>
+                <option value="Work">Work</option>
+                <option value="Personal">Personal</option>
+            </select>
+
+        </div>
+        
+        
+        
     </div>
-    <div class="flex space-x-5 justify-around md:justify-normal">
-        <div class="flex items-center">
+    <div class="flex justify-between">
+        <div class="cursor-pointer flex space-x-4" id="sortdiv">
+            <div class="border-2 rounded-md items-center flex space-x-1 px-4 py-1 " id="sortBtn">
+                <img src="{% static 'frontend/img/sort.png' %}" alt="" class="w-5 h-5">
+                <span>Sort</span>
+            </div>
+            <select id="sortby" class="block appearance-none w-[50%] bg-white border border-gray-300 hover:border-gray-400 px-4 py-1  rounded shadow leading-tight focus:outline-none focus:bg-white">
+                <option value="priority">Priority</option>
+                <option value="due_date">Due Date</option>
+                <option value="category">Category</option>
+            </select>
+        </div>
+        <div class="flex space-x-4">
+            <button class="border bg-blue-700 text-white px-3 py-2 rounded-md font-medium" id="add-task">+ Add task</button>
+            <button class="border bg-green-700 text-white px-3 py-2 rounded-md font-medium" id="refresh">Refresh</button>
+
+        </div>
+    </div>
+    <div class="">
+        <!-- <div class="flex items-center">
             <img src="https://via.placeholder.com/40" alt="" class="w-8 h-8 rounded-full border-2 border-white">
             <img src="https://via.placeholder.com/40" alt="" class="w-8 h-8 rounded-full border-2 border-white overlap">
             <img src="https://via.placeholder.com/40" alt="" class="w-8 h-8 rounded-full border-2 border-white overlap">
             <img src="https://via.placeholder.com/40" alt="" class="w-8 h-8 rounded-full border-2 border-white overlap">
             <div class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-semibold overlap text-sm">+2</div>
-        </div>
-        <div class="mt-1 border-2 rounded-full w-7 h-7 border-dashed flex justify-center items-center text-2xl text-gray-400 border-gray-400">+</div>
-        <button class="border bg-blue-700 text-white px-3 py-1 rounded-md font-medium" id="add-task">+ Add task</button>
+        </div> -->
+        <!-- <div class="mt-1 border-2 rounded-full w-7 h-7 border-dashed flex justify-center items-center text-2xl text-gray-400 border-gray-400">+</div> -->
     </div>
 </div>

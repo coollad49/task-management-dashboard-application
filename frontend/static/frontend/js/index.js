@@ -57,7 +57,8 @@ async function loadTasks(url, container, id) {
       $(container).empty();
 
       $(id).text(`(${response[id.replace("#", "")]})`)
-      response.tasks.forEach(function(task) {
+      if(response.length === 1){
+        task = response[0];
         const currentTime = new Date();
         const status = statusMap[task.status] || task.status; // Default to original if no match
         const priority = priorityMap[task.priority] || task.priority;
@@ -129,7 +130,84 @@ async function loadTasks(url, container, id) {
                   
               }
           });
-      });
+
+      }
+      else{
+        response.tasks.forEach(function(task) {
+          const currentTime = new Date();
+          const status = statusMap[task.status] || task.status; // Default to original if no match
+          const priority = priorityMap[task.priority] || task.priority;
+          const time = data_converter(task.due_date)
+          const dueDate = new Date(task.due_date);
+          if (task.status === 'IP' && dueDate < currentTime) {
+            updateTaskStatus(task.id, 'OV')// Update status to Overdue
+            loadTasks(in_progress_url, "#in_progress_task", "#inprogress_count")
+            loadTasks(completed_url, "#completed_task", "#completed_count")
+            loadTasks(overdue_url, "#overdue_task", "#overdue_count")
+          }
+          const taskElement = `<div class="space-y-2 rounded-md task" data-id="${task.id}" data-status="${task.status}">
+                <div class="flex justify-between">
+                    <div class="bg-red-200 py-1 px-4 rounded-md text-red-900 font-bold">${priority}</div>
+                    <div class="flex shadow-2xl shadow-black rounded-md space-x-2 text-center py-1 px-2 ">
+                        <img src="static/frontend/img/clock.png" alt="" class="w-6 h-6">
+                        <span class="text-violet-500 font-semibold">${time}</span>
+                    </div>
+                    <div class="bg-gray-500/20 text-center py-1 text-violet-500 font-medium rounded-md px-3">${task.category}</div>
+                </div>
+                <div class="bg-gray-500/20 px-2 py-4 space-y-3 shadow-xl">
+                    <div class="flex justify-between">
+                        <h1 class="font-medium text-xl">${task.title}</h1>
+                        <img src="static/frontend/img/kebab-gray.png" alt="" class="w-6 h-6">
+                    </div>
+                    <div class="space-y-2">
+                        <p class="text-gray-500">${task.description}</p>
+                        <div class="border rounded-md border-gray-500/30 w-16 p-1 flex items-center justify-around">
+                            <img src="static/frontend/img/task2.png" alt="" class="w-4 h-4">
+                            <span class="text-gray-500">0/3</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-around space-x-2">
+                        <a href=""><img src="static/frontend/img/eye.png" alt="" class="w-8 h-8"></a>
+                        <div class="delete-btn cursor-pointer" data-id="${task.id}"><img src="static/frontend/img/bin.png" alt="" class="w-8 h-8"></div>
+                        <div class="edit-task-btn cursor-pointer" data-id="${task.id}"><img src="static/frontend/img/pen.png" alt="" class="w-8 h-8"></div>
+                    </div>
+                </div>
+              </div>`;
+            $(container).append(taskElement);
+            $(".task").draggable({
+                revert: "invalid",
+                start: function(event, ui) {
+                    $(this).addClass("dragging");
+                    console.log("Task started dragging");
+                },
+                stop: function(event, ui) {
+                    $(this).removeClass("dragging");
+                    console.log("Task stopped dragging");
+                }
+            });
+          
+            $(".task-list").droppable({
+                accept: ".task",
+                drop: function(event, ui) {
+                    var newStatus = $(this).attr("id");
+                    var taskId = ui.draggable.data("id");
+          
+                    console.log("Task dropped on list " + newStatus);
+                    console.log("Task ID: " + taskId);
+          
+                    // Send AJAX request to update task status
+                    updateTaskStatus(taskId, newStatus, function() {
+                      // Reload tasks after status update
+                      loadTasks(in_progress_url, "#in_progress_task", "#inprogress_count")
+                      loadTasks(completed_url, "#completed_task", "#completed_count")
+                      loadTasks(overdue_url, "#overdue_task", "#overdue_count")
+                  });
+                    
+                }
+            });
+        });
+      }
+      
 
   } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -159,6 +237,28 @@ $(document).ready(function () {
     $('#searchModal').show();
   });
 
+  $('#sortdropdown').hide();
+  $('#sortdiv').click(function(){
+    $('#sortdropdown').show(500);
+  });
+
+  $(document).click(function(event) {
+    if (!$(event.target).closest('#sortdiv').length && !$(event.target).closest('#sortdropdown').length) {
+      $('#sortdropdown').hide(500);
+    }
+  });
+  $('#filterBtn').click(function(){
+    filter();
+  })
+
+  $('#sortBtn').click(function(){
+    sort();
+  })
+  $('#refresh').click(function(){
+    loadTasks(in_progress_url, "#in_progress_task", "#inprogress_count")
+    loadTasks(completed_url, "#completed_task", "#completed_count")
+    loadTasks(overdue_url, "#overdue_task", "#overdue_count")
+  })
   const btn = document.getElementById('menu-btn');
   const menu = document.getElementById('menu');
   const cover = document.getElementById('cover');
@@ -337,26 +437,14 @@ $(document).ready(function () {
 
 function data_converter(dueDateStr) {
   // Convert due_date string to Date object (considering it's in UTC)
-  const dueDate = new Date(dueDateStr);
 
-  // Extract hours and minutes
-  let hours = dueDate.getUTCHours(); // Get hours (24-hour format)
-  let minutes = dueDate.getUTCMinutes(); // Get minutes
-
-  // Determine AM or PM based on hours
-  const ampm = hours >= 12 ? 'PM' : 'AM';
-
-  // Convert hours to 12-hour format
-  hours = hours % 12;
-  hours = hours ? hours : 12; // the hour '0' should be '12'
-
-  // Format minutes to always be two digits
-  minutes = minutes < 10 ? '0' + minutes : minutes;
-
-  // Format time string
-  const timeStr = `${hours}:${minutes} ${ampm}`;
-
-  return timeStr;
+  const date = new Date(dueDateStr);
+    const day = date.getDate();
+    const monthIndex = date.getMonth();
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const month = monthNames[monthIndex];
+    return `${day} ${month}`;
 }
 
 
@@ -435,4 +523,46 @@ function updateTaskColors() {
       }
 
   });
+}
+
+function filter(){
+
+  const priority = $('#filterPriority').val();
+  const dueDate = $('#filterDuedate').val();
+  const category = $('#filterCategory').val();
+
+  let url = '/?';
+
+  if (priority) {
+      url += `priority=${priority}&`;
+  }
+  if (dueDate) {
+      url += `due_date=${dueDate}&`;
+  }
+  if (category) {
+      url += `category=${category}&`;
+  }
+  
+  if(url != '/?'){
+    loadTasks(in_progress_url+url, "#in_progress_task", "#inprogress_count")
+    loadTasks(completed_url+url, "#completed_task", "#completed_count")
+    loadTasks(overdue_url+url, "#overdue_task", "#overdue_count")
+  }
+  
+}
+
+function sort(){
+  const sortBy = $('#sortBy').val();
+  let url = '/?';
+
+  if (sortBy) {
+    url += `ordering=${sortBy}`;
+}
+
+  if(url != '/?'){
+    console.log(in_progress_url+url)
+    loadTasks(in_progress_url+url, "#in_progress_task", "#inprogress_count")
+    loadTasks(completed_url+url, "#completed_task", "#completed_count")
+    loadTasks(overdue_url+url, "#overdue_task", "#overdue_count")
+  }
 }

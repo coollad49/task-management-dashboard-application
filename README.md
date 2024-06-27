@@ -66,3 +66,9 @@ python manage.py runserver #on linux, use python3 manage.py runserver
 1. Open your browser and go to [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
 2. Register a new user or log in with existing credentials.
 3. Create, update, and manage your tasks.
+4. Applying Filters: After selecting your desired filters, click the "Filter" button to apply them.
+5. Applying Sorting: After choosing your sorting criteria, click the "Sort" button to sort the tasks accordingly.
+6. Editing a Task: Double-click the pen icon on the task to edit it.
+7. Changing Task Status: Drag the task to the desired status column to change its status.
+
+

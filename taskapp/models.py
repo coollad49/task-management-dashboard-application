@@ -6,6 +6,23 @@ class User(AbstractUser):
     pass
 
 class Task(models.Model):
+    """
+    Represents a task assigned to a user.
+
+    Attributes:
+        title (str): The title of the task.
+        description (str): A brief description of the task.
+        status (str): The status of the task, one of 'IP' (In Progress), 'CO' (Completed), or 'OV' (Overdue).
+        priority (str): The priority of the task, one of 'LO' (Low), 'ME' (Medium), or 'HI' (High).
+        due_date (datetime): The date and time the task is due.
+        category (str): The category of the task.
+        assigned_to (User): The user assigned to complete the task.
+
+    Example:
+        >>> task = Task(title="My Task", description="This is a task", status="IP", priority="ME", due_date=datetime.date(2023, 3, 15), category="Work", assigned_to=user)
+        >>> print(task)
+        My Task with ME priority
+    """
     STATUS_CHOICES = [
         ('IP', 'In Progress'),
         ('CO', 'Completed'),
