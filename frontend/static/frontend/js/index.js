@@ -237,16 +237,6 @@ $(document).ready(function () {
     $('#searchModal').show();
   });
 
-  $('#sortdropdown').hide();
-  $('#sortdiv').click(function(){
-    $('#sortdropdown').show(500);
-  });
-
-  $(document).click(function(event) {
-    if (!$(event.target).closest('#sortdiv').length && !$(event.target).closest('#sortdropdown').length) {
-      $('#sortdropdown').hide(500);
-    }
-  });
   $('#filterBtn').click(function(){
     filter();
   })
