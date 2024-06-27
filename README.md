@@ -1,4 +1,4 @@
-# Task Management System
+# Task Management App
 
 ## Introduction
 
@@ -53,11 +53,11 @@ python manage.py migrate
 ```bash
 npm install
 ```
-## Compile TailwindCSS
+### Compile TailwindCSS
 ```bash
 npm run build
 ```
-## Run the Development Server
+### Run the Development Server
 ```bash
 python manage.py runserver #on linux, use python3 manage.py runserver
 ```
