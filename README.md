@@ -29,7 +29,7 @@ Follow these steps to set up the project locally.
 
 ```bash
 python -m venv tma
-source tms/bin/activate  # On Windows, use `tms\Scripts\activate`
+source tma/bin/activate  # On Windows, use `tms\Scripts\activate`
 ```
 ### Clone the Repository
 
