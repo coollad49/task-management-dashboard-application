@@ -94,6 +94,34 @@ async function loadTasks(url, container, id) {
               </div>
             </div>`;
           $(container).append(taskElement);
+          $(".task").draggable({
+              revert: "invalid",
+              start: function(event, ui) {
+                  $(this).addClass("dragging");
+                  console.log("Task started dragging");
+              },
+              stop: function(event, ui) {
+                  $(this).removeClass("dragging");
+                  console.log("Task stopped dragging");
+              }
+          });
+        
+          $(".task-list").droppable({
+              accept: ".task",
+              drop: function(event, ui) {
+                  var newStatus = $(this).attr("id");
+                  var taskId = ui.draggable.data("id");
+        
+                  ui.draggable.detach().appendTo($(this)).css({top: 0, left: 0});
+                  ui.draggable.attr("data-status", newStatus);
+        
+                  console.log("Task dropped on list " + newStatus);
+                  console.log("Task ID: " + taskId);
+        
+                  // Send AJAX request to update task status
+                  updateTaskStatus(taskId, newStatus);
+              }
+          });
       });
 
   } catch (error) {
@@ -118,7 +146,6 @@ function getCookie(name) {
 }
 
 $(document).ready(function () {
-  drag_drop_feature()
   $('#searchModal').hide()
  
   $('#searchInput').focus(function() {
@@ -299,7 +326,6 @@ $(document).ready(function () {
     searchTasks(query); // Search tasks based on the input value
   });
 
-  
 });
 
 function data_converter(dueDateStr) {
@@ -377,29 +403,7 @@ $(document).on('click', '.delete-btn', function(){
 })
 
 function drag_drop_feature(){
-  $(".task").draggable({
-      revert: "invalid",
-      start: function(event, ui) {
-          $(this).addClass("dragging");
-      },
-      stop: function(event, ui) {
-          $(this).removeClass("dragging");
-      }
-  });
-
-  $(".task-list").droppable({
-      accept: ".task",
-      drop: function(event, ui) {
-          var newStatus = $(this).attr("id");
-          var taskId = ui.draggable.data("id");
-
-          ui.draggable.detach().appendTo($(this)).css({top: 0, left: 0});
-          ui.draggable.attr("data-status", newStatus);
-
-          // Send AJAX request to update task status
-          updateTaskStatus(taskId, newStatus);
-      }
-  });
+  
 }
 
 function updateTaskColors() {
