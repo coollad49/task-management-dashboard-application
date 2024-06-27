@@ -23,6 +23,7 @@ Follow these steps to set up the project locally.
 - pip (Python package installer)
 - Node.js (for TailwindCSS)
 - npm (Node package manager)
+- Internet connection for Jquery API
 
 ## Setting up the Backend
 ### Create a Virtual Environment
