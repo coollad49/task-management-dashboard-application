@@ -31,7 +31,7 @@ Follow these steps to set up the project locally.
 ```bash
 pip install virtualenv
 virtualenv tma
-source venv/bin/activate
+source tma/bin/activate
 ```
 ### On Windows
 ```bash
