@@ -1,3 +1,5 @@
+// This script handles the task management functionalities including loading tasks, updating task status, and handling UI interactions such as drag-and-drop, filtering, and sorting tasks.
+
 const in_progress_url = "http://localhost:8000/tasks/in_progress";
 const completed_url = "http://localhost:8000/tasks/completed";
 const overdue_url = "http://localhost:8000/tasks/overdue";
@@ -14,6 +16,19 @@ const priorityMap = {
   'ME': 'Medium'
 };
 
+
+
+/**
+ * Updates the status of a task.
+ *
+ * This function sends an AJAX request to update the status of a task identified by its taskId.
+ * The new status is provided as an argument, and an optional callback function can be executed
+ * upon successful completion of the request.
+ *
+ * @param {number} taskId - The ID of the task to be updated.
+ * @param {string} newStatus - The new status to be assigned to the task.
+ * @param {function} [callback] - An optional callback function to be executed upon successful update.
+ */
 function updateTaskStatus(taskId, newStatus, callback) {
   $.ajax({
       url: `http://localhost:8000/tasks/${taskId}/update/`,
@@ -35,6 +50,19 @@ function updateTaskStatus(taskId, newStatus, callback) {
   });
 }
 
+
+/**
+ * Loads tasks from a specified URL and updates the task container with the fetched tasks.
+ *
+ * This function sends an AJAX GET request to the provided URL to fetch tasks. It then updates
+ * the specified container with the fetched tasks, and updates the task count in the specified
+ * element. If a task is in progress and its due date has passed, the task status is updated to
+ * 'Overdue' and the tasks are reloaded.
+ *
+ * @param {string} url - The URL to fetch tasks from.
+ * @param {string} container - The selector for the container to update with the fetched tasks.
+ * @param {string} id - The selector for the element to update with the task count.
+ */
 async function loadTasks(url, container, id) {
   const statusMap = {
     'IP': 'In Progress',
@@ -62,7 +90,7 @@ async function loadTasks(url, container, id) {
         const currentTime = new Date();
         const status = statusMap[task.status] || task.status; // Default to original if no match
         const priority = priorityMap[task.priority] || task.priority;
-        const time = data_converter(task.due_date)
+        const time = date_converter(task.due_date)
         const dueDate = new Date(task.due_date);
         if (task.status === 'IP' && dueDate < currentTime) {
           updateTaskStatus(task.id, 'OV')// Update status to Overdue
@@ -137,7 +165,7 @@ async function loadTasks(url, container, id) {
           const currentTime = new Date();
           const status = statusMap[task.status] || task.status; // Default to original if no match
           const priority = priorityMap[task.priority] || task.priority;
-          const time = data_converter(task.due_date)
+          const time = date_converter(task.due_date)
           const dueDate = new Date(task.due_date);
           if (task.status === 'IP' && dueDate < currentTime) {
             updateTaskStatus(task.id, 'OV')// Update status to Overdue
@@ -373,7 +401,16 @@ $(document).ready(function () {
       console.log(allTasks)
     });
   }
-
+  /**
+   * Searches for tasks based on the provided query and updates the task container with the results.
+   *
+   * This function filters the tasks stored in the `allTasks` array based on the provided query.
+   * If the query is an empty string, it clears the task container and fetches all tasks again.
+   * Otherwise, it filters the tasks by checking if the query is included in the task's title,
+   * description, or category (case-insensitive), and then displays the filtered tasks.
+   *
+   * @param {string} query - The search query used to filter tasks.
+   */
   function searchTasks(query) {
     const container = $('#taskContainer');
   
@@ -391,6 +428,16 @@ $(document).ready(function () {
     }
   }
 
+  /**
+   * Displays a list of tasks in the task container.
+   *
+   * This function clears the existing content of the task container and appends new task elements
+   * based on the provided tasks array. Each task element includes the task's title, description,
+   * status, priority, due date, and category. The function also updates the task colors after
+   * appending the new elements.
+   *
+   * @param {Array} tasks - An array of task objects to be displayed.
+   */
   function displayTasks(tasks) {
     const container = $('#taskContainer');
     container.empty(); // Clear the container
@@ -398,7 +445,7 @@ $(document).ready(function () {
     tasks.forEach(task => {
       const status = statusMap[task.status] || task.status; // Default to original if no match
       const priority = priorityMap[task.priority] || task.priority;
-      const time = data_converter(task.due_date)
+      const time = date_converter(task.due_date)
       const taskElement = `<div class="bg-white border rounded-md shadow-md p-4">
                             <h3 class="text-lg font-medium text-gray-900">${task.title}</h3>
                             <p class="text-sm text-gray-500 mb-2">${task.description}</p>
@@ -426,7 +473,7 @@ $(document).ready(function () {
 
 });
 
-function data_converter(dueDateStr) {
+function date_converter(dueDateStr) {
   // Convert due_date string to Date object (considering it's in UTC)
 
   const date = new Date(dueDateStr);
@@ -488,10 +535,21 @@ $(document).on('click', '.delete-btn', function(){
   });
 })
 
-function drag_drop_feature(){
-  
-}
-
+/**
+ * Updates the colors of task elements based on their status and priority.
+ *
+ * This function selects all task elements within the '#taskContainer' and iterates through each task.
+ * It reads the status and priority text of each task and applies corresponding color classes to the elements.
+ * 
+ * Status colors:
+ * - 'In Progress': Adds the 'text-blue-500' class.
+ * - 'Completed': Adds the 'green' class.
+ * 
+ * Priority colors:
+ * - 'High': Adds the 'red' class.
+ * - 'Medium': Adds the 'yellow' class.
+ * - 'Low': Adds the 'green' class.
+ */
 function updateTaskColors() {
   const tasks = document.querySelectorAll('#taskContainer > div');
   tasks.forEach(task => {
@@ -515,9 +573,15 @@ function updateTaskColors() {
 
   });
 }
-
-function filter(){
-
+/**
+ * Filters tasks based on selected priority, due date, and category.
+ *
+ * This function constructs a URL with query parameters based on the selected filter criteria.
+ * It then calls the loadTasks function to fetch and display the filtered tasks for each task status.
+ *
+ * @function
+ */
+function filter() {
   const priority = $('#filterPriority').val();
   const dueDate = $('#filterDuedate').val();
   const category = $('#filterCategory').val();
@@ -539,16 +603,23 @@ function filter(){
     loadTasks(completed_url+url, "#completed_task", "#completed_count")
     loadTasks(overdue_url+url, "#overdue_task", "#overdue_count")
   }
-  
 }
 
-function sort(){
+/**
+ * Sorts tasks based on the selected sorting criteria.
+ *
+ * This function constructs a URL with a query parameter for sorting based on the selected criteria.
+ * It then calls the loadTasks function to fetch and display the sorted tasks for each task status.
+ *
+ * @function
+ */
+function sort() {
   const sortBy = $('#sortBy').val();
   let url = '/?';
 
   if (sortBy) {
     url += `ordering=${sortBy}`;
-}
+  }
 
   if(url != '/?'){
     console.log(in_progress_url+url)
