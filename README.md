@@ -29,8 +29,9 @@ Follow these steps to set up the project locally.
 ### Create a Virtual Environment
 
 ```bash
-python -m venv tma
-source tma/bin/activate  # On Windows, use `tms\Scripts\activate`
+pip install virtualenv
+virtualenv tma
+tma\Scripts\activate   # On macOS/Linux `source venv/bin/activate`
 ```
 ### Clone the Repository
 
