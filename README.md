@@ -26,8 +26,14 @@ Follow these steps to set up the project locally.
 - Internet connection for Jquery API
 
 ## Setting up the Backend
-### Create a Virtual Environment
-
+## Create a Virtual Environment
+### On macOS/Linux
+```bash
+pip install virtualenv
+virtualenv tma
+source venv/bin/activate
+```
+### On Windows
 ```bash
 pip install virtualenv
 virtualenv tma
@@ -45,7 +51,7 @@ cd task-management-dashboard-application
 ```bash
 pip install -r requirements.txt
 ```
-## Run Migrations
+### Run Migrations
 ```bash
 python manage.py migrate
 ```
@@ -61,8 +67,9 @@ npm run build
 ```
 ### Run the Development Server
 ```bash
-python manage.py runserver #on linux, use python3 manage.py runserver
+python manage.py runserver
 ```
+# on linux, run python3 manage.py runserver
 ## Usage
 
 1. Open your browser and go to [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
