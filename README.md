@@ -37,7 +37,7 @@ source tma/bin/activate
 ```bash
 pip install virtualenv
 virtualenv tma
-tma\Scripts\activate   # On macOS/Linux `source venv/bin/activate`
+tma\Scripts\activate
 ```
 ### Clone the Repository
 
