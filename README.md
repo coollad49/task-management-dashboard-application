@@ -1,5 +1,5 @@
 # Task Management App
-
+![Visitor Badge](https://visitor-badge.laobi.icu/badge?page_id=coollad49.task-management-dashboard-application)
 ## Introduction
 
 The Task Management Dashboard Application is a comprehensive tool designed to help individuals manage their tasks efficiently. It provides a user-friendly interface for creating, tracking, and organizing tasks. The application supports functionalities such as drag-and-drop task management, priority setting, and due date tracking, making it an essential tool for project management and daily task tracking.
