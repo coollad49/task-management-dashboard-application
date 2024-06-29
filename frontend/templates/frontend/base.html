@@ -13,25 +13,50 @@
         <title>TaskManager</title>
     </head>
     <body class="">
-        {% include 'frontend/modal.html' %}
-        <div class="flex flex-col xl:flex-row">
-            {% include 'frontend/aside.html' %}
-            <div class="xl:hidden pt-8 w-full flex justify-end pr-4">
-                <button
-                    id="menu-btn"
-                    type="button"
-                    class="z-40 block hamburger xl:hidden focus:outline-none"
-                    >
-                    <span class="hamburger-top"></span>
-                    <span class="hamburger-middle"></span>
-                    <span class="hamburger-bottom"></span>
-                </button>
-            </div>
-            
-            <div class="pt-8 w-full min-h-screen xl:ml-56 space-y-10 px-4 pb-20">
-                {% include 'frontend/header.html' %}
-                {% include 'frontend/tasks.html' %}
+        <div class="flex items-center justify-center min-h-screen bg-slate-900" id="loader">
+            <svg
+              class="animate-spin w-48 text-white ml-24"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+        </div>
+        <div id="contentToLoad" style="display: none;">
+            {% include 'frontend/modal.html' %}
+            <div class="flex flex-col xl:flex-row">
+                {% include 'frontend/aside.html' %}
+                <div class="xl:hidden pt-8 w-full flex justify-end pr-4">
+                    <button
+                        id="menu-btn"
+                        type="button"
+                        class="z-40 block hamburger xl:hidden focus:outline-none"
+                        >
+                        <span class="hamburger-top"></span>
+                        <span class="hamburger-middle"></span>
+                        <span class="hamburger-bottom"></span>
+                    </button>
+                </div>
+                
+                <div class="pt-8 w-full min-h-screen xl:ml-56 space-y-10 px-4 pb-20">
+                    {% include 'frontend/header.html' %}
+                    {% include 'frontend/tasks.html' %}
+                </div>
             </div>
         </div>
+        
     </body>
 </html>

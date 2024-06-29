@@ -471,6 +471,9 @@ $(document).ready(function () {
     searchTasks(query); // Search tasks based on the input value
   });
 
+  $('#loader').hide()
+  $('#contentToLoad').show()
+
 });
 
 function date_converter(dueDateStr) {
