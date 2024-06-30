@@ -39,7 +39,7 @@ pip install virtualenv
 virtualenv tma
 tma\Scripts\activate
 ```
-### Clone the Repository
+## Clone the Repository
 
 ```bash
 git clone https://github.com/coollad49/task-management-dashboard-application.git
@@ -65,11 +65,14 @@ npm install
 ```bash
 npm run build
 ```
-### Run the Development Server
+## Run the Development Server
 ```bash
 python manage.py runserver
 ```
-# on linux, run python3 manage.py runserver
+### on linux
+```bash
+python3 manage.py runserver
+```
 ## Usage
 
 1. Open your browser and go to [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
