@@ -364,6 +364,7 @@ $(document).ready(function () {
             // Handle success (e.g., refresh the task list, close modal)
             showAlert('success', 'Task created successfully')
             $('#addtask-modal').hide();
+            document.getElementById("createTaskForm").reset();
             // Reload the task list
             loadTasks(in_progress_url, "#in_progress_task", "#inprogress_count")
             loadTasks(completed_url, "#completed_task", "#completed_count")
