@@ -361,7 +361,6 @@ $(document).ready(function () {
       event.preventDefault();
 
       const taskId = $('#editId').val();
-      console.log(taskId)
       const formData = {
         title: $('#editTitle').val(),
         description: $('#editDescription').val(),
