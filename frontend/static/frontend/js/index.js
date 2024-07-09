@@ -1,8 +1,10 @@
 // This script handles the task management functionalities including loading tasks, updating task status, and handling UI interactions such as drag-and-drop, filtering, and sorting tasks.
 
-const in_progress_url = "http://localhost:8000/tasks/in_progress";
-const completed_url = "http://localhost:8000/tasks/completed";
-const overdue_url = "http://localhost:8000/tasks/overdue";
+const base_url = `${window.location.protocol}//${window.location.hostname}:8000`;
+console.log(base_url)
+const in_progress_url = `${base_url}/tasks/in_progress`;
+const completed_url = `${base_url}/tasks/completed`;
+const overdue_url = `${base_url}/tasks/overdue`;
 
 const statusMap = {
   'IP': 'In Progress',
@@ -50,7 +52,7 @@ const showAlert = (status, message)=>{
  */
 function updateTaskStatus(taskId, newStatus, callback) {
   $.ajax({
-      url: `http://localhost:8000/tasks/${taskId}/update/`,
+      url: `${base_url}/tasks/${taskId}/update/`,
       method: 'PATCH',
       contentType: 'application/json',
       headers: {
@@ -353,7 +355,7 @@ $(document).ready(function () {
     };
     console.log(JSON.stringify(formData))
     $.ajax({
-        url: 'http://localhost:8000/tasks/',  // Your API endpoint to create tasks
+        url: `${base_url}/tasks/`,  // Your API endpoint to create tasks
         method: 'POST',
         data: JSON.stringify(formData),
         contentType: 'application/json',
@@ -392,7 +394,7 @@ $(document).ready(function () {
     };
 
       $.ajax({
-          url: 'http://localhost:8000/tasks/' + taskId + '/update/',
+          url: `${base_url}/tasks/` + taskId + '/update/',
           method: 'PUT',
           data: JSON.stringify(formData),
           contentType: 'application/json',
@@ -417,7 +419,7 @@ $(document).ready(function () {
   let allTasks = [];
 
   function fetchTasks() {
-    $.get('http://localhost:8000/tasks/', function(data) {
+    $.get(`${base_url}/tasks/`, function(data) {
       allTasks = data; // Store the fetched tasks
       console.log(allTasks)
     });
@@ -515,7 +517,7 @@ $(document).on('click', '.edit-task-btn', function(){
   $('.edit-task-btn').click(function() {
     console.log(taskId)
     // Fetch task data and populate the form
-    $.get('http://localhost:8000/tasks/' + taskId, function(data) {
+    $.get(`${base_url}/tasks/` + taskId, function(data) {
         const dueDate = new Date(data.due_date);
         const formattedDueDate = dueDate.toISOString().slice(0, 16); // Get 'YYYY-MM-DDTHH:MM' format
         
@@ -538,7 +540,7 @@ $(document).on('click', '.delete-btn', function(){
     console.log(taskId)
     if (true) {
         $.ajax({
-            url: 'http://localhost:8000/tasks/' + taskId + '/delete/',
+            url: `${base_url}/tasks/` + taskId + '/delete/',
             method: 'DELETE',
             headers: {
                 'X-CSRFToken': getCookie('csrftoken')
