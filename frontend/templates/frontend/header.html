@@ -1,6 +1,14 @@
 {% load static %}
 
 <header class="">
+    <div class="z-50 bg-red-100 border border-red-400 text-red-700 px-4 mb-3 py-3 mt-0 rounded relative hidden" role="alert" id="alert-danger">
+        <strong class="font-bold">Error!</strong>
+        <span class="block sm:inline" id="message-danger"></span>
+    </div>
+    <div class="z-50 bg-green-100 border border-green-400 text-green-700 px-4 mb-3 py-3 mt-0 rounded relative hidden" role="alert" id="alert-success">
+        <strong class="font-bold">Success</strong>
+        <span class="block sm:inline" id="message-success"></span>
+    </div>
     <form class="relative px-24" id="searchForm">
         <input type="text" name="Search" id="searchInput" class="border w-full h-9 focus:outline-none placeholder:font-medium placeholder:text-gray-500 pl-8 rounded-md " placeholder="Search tasks">
         <svg

@@ -16,6 +16,25 @@ const priorityMap = {
   'ME': 'Medium'
 };
 
+const showAlert = (status, message)=>{
+  if (status == 'success'){
+    $("#message-success").text(message)
+    $("#alert-success").show()
+
+    setTimeout(()=>{
+      $("#alert-success").fadeOut()
+    }, 3000)
+  }
+  else if (status == 'danger'){
+    $("#message-danger").text(message)
+    $("#alert-danger").show()
+
+    setTimeout(()=>{
+      $("#alert-danger").fadeOut()
+    }, 3000)
+
+  }
+}
 
 
 /**
@@ -343,7 +362,7 @@ $(document).ready(function () {
         },
         success: function(response) {
             // Handle success (e.g., refresh the task list, close modal)
-            alert('Task created successfully');
+            showAlert('success', 'Task created successfully')
             $('#addtask-modal').hide();
             // Reload the task list
             loadTasks(in_progress_url, "#in_progress_task", "#inprogress_count")
@@ -352,7 +371,8 @@ $(document).ready(function () {
         },
         error: function(xhr, status, error) {
             // Handle error
-            alert('Error creating task: ' + error);
+            console.log('Error creating task: ' + error);
+            showAlert('danger', 'Error creating task')
         }
     });
   });
@@ -379,7 +399,7 @@ $(document).ready(function () {
               'X-CSRFToken': getCookie('csrftoken')
           },
           success: function(response) {
-              alert('Task updated successfully');
+              showAlert('success', 'Task updated successfully')
               $('#editTaskModal').hide();
               // Reload the task list
               loadTasks(in_progress_url, "#in_progress_task", "#inprogress_count")
@@ -387,7 +407,8 @@ $(document).ready(function () {
               loadTasks(overdue_url, "#overdue_task", "#overdue_count")
           },
           error: function(xhr, status, error) {
-              alert('Error updating task: ' + error);
+              console.log('Error updating task: ' + error);
+              showAlert('success', 'Error updating Task')
           }
       });
   });
@@ -522,7 +543,7 @@ $(document).on('click', '.delete-btn', function(){
                 'X-CSRFToken': getCookie('csrftoken')
             },
             success: function(response) {
-                alert('Task deleted successfully');
+                showAlert('success', 'Task Deleted successfully')
                 // Reload the task list
                 loadTasks(in_progress_url, "#in_progress_task", "#inprogress_count")
                 loadTasks(completed_url, "#completed_task", "#completed_count")
@@ -530,7 +551,8 @@ $(document).on('click', '.delete-btn', function(){
                 $('#deleteModal').hide()
             },
             error: function(xhr, status, error) {
-                alert('Error deleting task: ' + error);
+                console.log('Error deleting task: ' + error);
+                showAlert('success', 'Error deleting Task')
             }
         });
     }
