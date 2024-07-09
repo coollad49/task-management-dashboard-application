@@ -75,7 +75,7 @@ python3 manage.py runserver
 ```
 ## Usage
 
-1. Open your browser and go to [localhost:8000](localhost:8000).
+1. Open your browser and go to [http://localhost:8000/](http://localhost:8000/).
 2. Register a new user or log in with existing credentials.
 3. Create, update, and manage your tasks.
 4. Applying Filters: After selecting your desired filters, click the "Filter" button to apply them.
