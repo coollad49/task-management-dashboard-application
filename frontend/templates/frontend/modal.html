@@ -2,11 +2,11 @@
 
 <div class="h-full w-full fixed bg-black/70 inset-0 hidden z-20" id="cover"></div>
 
-<div id="addtask-modal" class="h-full w-full fixed bg-black/90 inset-0 z-50 flex justify-center items-center px-12">
-    <div class="bg-white md:w-[50%] p-5 rounded-lg text-gray-700 font-mono relative">
-        <img src="{% static 'frontend/img/close.png' %}" alt="" class="cursor-pointer md:w-10 md:h-10 absolute md:right-5 w-5 h-5 right-3 close-btn">
+<div id="addtask-modal" class="h-full w-full fixed bg-black/90 inset-0 z-50 flex justify-center items-center md:px-12">
+    <div class="bg-white md:w-[50%] p-5 rounded-lg text-gray-700 font-mono relative h-full">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="cursor-pointer w-8 h-8 absolute md:right-5 right-3 close-btn"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
         <h1 class="text-blue-500 font-semibold font-mono text-center text-2xl">Create Task</h1>
-        <form action="" class="space-y-3" id="createTaskForm">
+        <form action="" class="space-y-6" id="createTaskForm" method="post" novalidate>
             <input type="text" class="w-full p-4 border-b-2 focus:outline-none placeholder:font-medium" name="title" id="title" placeholder="Title">
             <textarea name="Description" id="description" class="w-full p-4 border-b-2 focus:outline-none placeholder:font-medium" placeholder="Description"></textarea>
             <select class="rounded-md border-b-2 text-gray-500. p-4 focus:outline-none w-full" id="status" name="status">

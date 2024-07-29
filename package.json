@@ -5,6 +5,6 @@
     "tailwindcss": "^3.4.4"
   },
   "scripts": {
-    "build": "tailwindcss -i ./frontend/static/frontend/css/input.css -o ./frontend/static/frontend/css/output.css --watch"
+    "build": "tailwindcss -i ./frontend/static/frontend/css/input.css -o ./frontend/static/frontend/css/output.css"
   }
 }
