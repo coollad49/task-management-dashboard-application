@@ -5,6 +5,7 @@ const in_progress_url = `${base_url}/tasks/in_progress`;
 const completed_url = `${base_url}/tasks/completed`;
 const overdue_url = `${base_url}/tasks/overdue`;
 
+console.log(base_url);
 const statusMap = {
   'IP': 'In Progress',
   'CO': 'Completed',
