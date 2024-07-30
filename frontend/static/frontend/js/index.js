@@ -1,6 +1,6 @@
 // This script handles the task management functionalities including loading tasks, updating task status, and handling UI interactions such as drag-and-drop, filtering, and sorting tasks.
 
-const base_url = `${window.location.protocol}//${window.location.hostname}:8000`;
+const base_url = `${window.location.protocol}//${window.location.hostname}`;
 const in_progress_url = `${base_url}/tasks/in_progress`;
 const completed_url = `${base_url}/tasks/completed`;
 const overdue_url = `${base_url}/tasks/overdue`;
